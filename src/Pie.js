@@ -93,7 +93,7 @@ class Pie extends Chart {
   setTitle(title) {
     this.svg.append('text')
       .attr('x', (this.width / 2))
-      .attr('y', 0 - (this.margin.top / 3))
+      .attr('y', -10 - (this.margin.top / 3))
       .attr('class', 'title')
       .attr('text-anchor', 'middle')
       .style('font-size', (this.titleFontSize === undefined) ?
