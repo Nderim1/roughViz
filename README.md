@@ -16,13 +16,13 @@ Use these charts where the communication goal is to show intent or generality, a
 
 **Chart Types** (more to come!)
 <ul>
- <li>Bar (<code>roughViz.Bar</code>) <a href="#Bar">API</a>. <a href="https://blockbuilder.org/jwilber/4dc5235f7ea5e51ac1219b3605f5af6a">Example</a>.</li>
-<li> Horizontal Bar (<code>roughViz.BarH</code>) <a href="#BarH">API</a>. <a href="https://blockbuilder.org/jwilber/419fa6d878fe6c0f79a28f9fc72d7ec6">Example</a>.</li>
-<li> Donut (<code>roughViz.Donut</code>) <a href="#Donut">API</a>. <a href="https://blockbuilder.org/jwilber/e713c03097950d53a8cfde4c23aa292f">Example</a>.</li>
-<li> Line (<code>roughViz.Line</code>) <a href="#Line">API</a>. <a href="https://blockbuilder.org/jwilber/ec7cbc374c2dc61b255494511e7d7ac6">Example</a>.</li>
-<li> Pie (<code>roughViz.Pie</code>) <a href="#Pie">API</a>. <a href="https://blockbuilder.org/jwilber/d117e0b0864a161bec2d914013ed69da">Example</a>.</li>
-<li> Scatter (<code>roughViz.Scatter</code>) <a href="#Scatter">API</a>. <a href="https://blockbuilder.org/jwilber/d02e4381d776fb9a7bcb126d3b32c85b">Example</a>.</li>
- <li> Stacked Bar (<code>roughViz.StackedBar</code>) <a href="#StackedBar">API</a>. <a href="https://blockbuilder.org/jwilber/ee35865631cb805057142568fa5fd090">Example</a>.</li>
+ <li>Bar (<code>roughViz.Bar</code>) <a href="#roughvizbar">API</a>. <a href="https://blockbuilder.org/jwilber/4dc5235f7ea5e51ac1219b3605f5af6a">Example</a>.</li>
+<li> Horizontal Bar (<code>roughViz.BarH</code>) <a href="#roughvizbarh">API</a>. <a href="https://blockbuilder.org/jwilber/419fa6d878fe6c0f79a28f9fc72d7ec6">Example</a>.</li>
+<li> Donut (<code>roughViz.Donut</code>) <a href="#roughvizdonut">API</a>. <a href="https://blockbuilder.org/jwilber/e713c03097950d53a8cfde4c23aa292f">Example</a>.</li>
+<li> Line (<code>roughViz.Line</code>) <a href="#roughvizline">API</a>. <a href="https://blockbuilder.org/jwilber/ec7cbc374c2dc61b255494511e7d7ac6">Example</a>.</li>
+<li> Pie (<code>roughViz.Pie</code>) <a href="#roughvizpie">API</a>. <a href="https://blockbuilder.org/jwilber/d117e0b0864a161bec2d914013ed69da">Example</a>.</li>
+<li> Scatter (<code>roughViz.Scatter</code>) <a href="#roughvizscatter">API</a>. <a href="https://blockbuilder.org/jwilber/d02e4381d776fb9a7bcb126d3b32c85b">Example</a>.</li>
+ <li> Stacked Bar (<code>roughViz.StackedBar</code>) <a href="#roughvizstackedBar">API</a>. <a href="https://blockbuilder.org/jwilber/ee35865631cb805057142568fa5fd090">Example</a>.</li>
  </ul>
 
 Apply the features of `roughjs` to each chart:
