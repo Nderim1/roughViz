@@ -41,10 +41,10 @@ function st(i, t) {
   }
   return [e, s];
 }
-var Vi = Math.sqrt(50), Yi = Math.sqrt(10), Hi = Math.sqrt(2);
+var Vi = Math.sqrt(50), Yi = Math.sqrt(10), Ni = Math.sqrt(2);
 function ve(i, t, e) {
   var s = (t - i) / Math.max(0, e), n = Math.floor(Math.log(s) / Math.LN10), r = s / Math.pow(10, n);
-  return n >= 0 ? (r >= Vi ? 10 : r >= Yi ? 5 : r >= Hi ? 2 : 1) * Math.pow(10, n) : -Math.pow(10, -n) / (r >= Vi ? 10 : r >= Yi ? 5 : r >= Hi ? 2 : 1);
+  return n >= 0 ? (r >= Vi ? 10 : r >= Yi ? 5 : r >= Ni ? 2 : 1) * Math.pow(10, n) : -Math.pow(10, -n) / (r >= Vi ? 10 : r >= Yi ? 5 : r >= Ni ? 2 : 1);
 }
 function Q(i, t) {
   let e;
@@ -136,10 +136,10 @@ function xs(i, t) {
     return arguments.length ? (h = +c, d) : h;
   }, d;
 }
-function Ht(i) {
+function Nt(i) {
   return xs(3, i);
 }
-function Dt(i) {
+function Ht(i) {
   return xs(4, i);
 }
 var ke = {}, Mi = {};
@@ -265,13 +265,13 @@ function ni(i, t) {
   return [s.length > 1 ? s[0] + s.slice(2) : s, +i.slice(e + 1)];
 }
 var Ss, An = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
-function Di(i) {
+function Hi(i) {
   if (!(t = An.exec(i)))
     throw new Error("invalid format: " + i);
   var t;
-  return new Ti({ fill: t[1], align: t[2], sign: t[3], symbol: t[4], zero: t[5], width: t[6], comma: t[7], precision: t[8] && t[8].slice(1), trim: t[9], type: t[10] });
+  return new Di({ fill: t[1], align: t[2], sign: t[3], symbol: t[4], zero: t[5], width: t[6], comma: t[7], precision: t[8] && t[8].slice(1), trim: t[9], type: t[10] });
 }
-function Ti(i) {
+function Di(i) {
   this.fill = i.fill === void 0 ? " " : i.fill + "", this.align = i.align === void 0 ? ">" : i.align + "", this.sign = i.sign === void 0 ? "-" : i.sign + "", this.symbol = i.symbol === void 0 ? "" : i.symbol + "", this.zero = !!i.zero, this.width = i.width === void 0 ? void 0 : +i.width, this.comma = !!i.comma, this.precision = i.precision === void 0 ? void 0 : +i.precision, this.trim = !!i.trim, this.type = i.type === void 0 ? "" : i.type + "";
 }
 function Me(i, t) {
@@ -281,7 +281,7 @@ function Me(i, t) {
   var s = e[0], n = e[1];
   return n < 0 ? "0." + new Array(-n).join("0") + s : s.length > n + 1 ? s.slice(0, n + 1) + "." + s.slice(n + 1) : s + new Array(n - s.length + 2).join("0");
 }
-Di.prototype = Ti.prototype, Ti.prototype.toString = function() {
+Hi.prototype = Di.prototype, Di.prototype.toString = function() {
   return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === void 0 ? "" : Math.max(1, 0 | this.width)) + (this.comma ? "," : "") + (this.precision === void 0 ? "" : "." + Math.max(0, 0 | this.precision)) + (this.trim ? "~" : "") + this.type;
 };
 const Re = { "%": function(i, t) {
@@ -330,7 +330,7 @@ function yn(i) {
     };
   }(ze.call(i.numerals, String)), o = i.percent === void 0 ? "%" : i.percent + "", l = i.minus === void 0 ? "-" : i.minus + "", u = i.nan === void 0 ? "NaN" : i.nan + "";
   function d(c) {
-    var g = (c = Di(c)).fill, p = c.align, f = c.sign, y = c.symbol, m = c.zero, A = c.width, b = c.comma, S = c.precision, w = c.trim, v = c.type;
+    var g = (c = Hi(c)).fill, p = c.align, f = c.sign, y = c.symbol, m = c.zero, A = c.width, b = c.comma, S = c.precision, w = c.trim, v = c.type;
     v === "n" ? (b = !0, v = "g") : Re[v] || (S === void 0 && (S = 12), w = !0, v = "g"), (m || g === "0" && p === "=") && (m = !0, g = "0", p = "=");
     var M = y === "$" ? n : y === "#" && /[boxX]/.test(v) ? "0" + v.toLowerCase() : "", j = y === "$" ? r : /[%p]/.test(v) ? o : "", C = Re[v], P = /[defgprs%]/.test(v);
     function F(k) {
@@ -338,11 +338,11 @@ function yn(i) {
       if (v === "c")
         E = C(k) + E, k = "";
       else {
-        var T = (k = +k) < 0 || 1 / k < 0;
-        if (k = isNaN(k) ? u : C(Math.abs(k), S), w && (k = function(H) {
+        var D = (k = +k) < 0 || 1 / k < 0;
+        if (k = isNaN(k) ? u : C(Math.abs(k), S), w && (k = function(N) {
           t:
-            for (var et, gt = H.length, B = 1, V = -1; B < gt; ++B)
-              switch (H[B]) {
+            for (var et, gt = N.length, B = 1, V = -1; B < gt; ++B)
+              switch (N[B]) {
                 case ".":
                   V = et = B;
                   break;
@@ -350,12 +350,12 @@ function yn(i) {
                   V === 0 && (V = B), et = B;
                   break;
                 default:
-                  if (!+H[B])
+                  if (!+N[B])
                     break t;
                   V > 0 && (V = 0);
               }
-          return V > 0 ? H.slice(0, V) + H.slice(et + 1) : H;
-        }(k)), T && +k == 0 && f !== "+" && (T = !1), L = (T ? f === "(" ? f : l : f === "-" || f === "(" ? "" : f) + L, E = (v === "s" ? Fe[8 + Ss / 3] : "") + E + (T && f === "(" ? ")" : ""), P) {
+          return V > 0 ? N.slice(0, V) + N.slice(et + 1) : N;
+        }(k)), D && +k == 0 && f !== "+" && (D = !1), L = (D ? f === "(" ? f : l : f === "-" || f === "(" ? "" : f) + L, E = (v === "s" ? Fe[8 + Ss / 3] : "") + E + (D && f === "(" ? ")" : ""), P) {
           for (R = -1, O = k.length; ++R < O; )
             if (48 > (I = k.charCodeAt(R)) || I > 57) {
               E = (I === 46 ? a + k.slice(R + 1) : k.slice(R)) + E, k = k.slice(0, R);
@@ -364,7 +364,7 @@ function yn(i) {
         }
       }
       b && !m && (k = s(k, 1 / 0));
-      var q = L.length + k.length + E.length, G = q < A ? new Array(A - q + 1).join(g) : "";
+      var T = L.length + k.length + E.length, G = T < A ? new Array(A - T + 1).join(g) : "";
       switch (b && m && (k = s(G + k, G.length ? A - E.length : 1 / 0), G = ""), p) {
         case "<":
           k = L + k + E + G;
@@ -373,7 +373,7 @@ function yn(i) {
           k = L + G + k + E;
           break;
         case "^":
-          k = G.slice(0, q = G.length >> 1) + L + k + E + G.slice(q);
+          k = G.slice(0, T = G.length >> 1) + L + k + E + G.slice(T);
           break;
         default:
           k = G + L + k + E;
@@ -385,7 +385,7 @@ function yn(i) {
     }, F;
   }
   return { format: d, formatPrefix: function(c, g) {
-    var p = d(((c = Di(c)).type = "f", c)), f = 3 * Math.max(-8, Math.min(8, Math.floor(function(A) {
+    var p = d(((c = Hi(c)).type = "f", c)), f = 3 * Math.max(-8, Math.min(8, Math.floor(function(A) {
       return (A = ni(Math.abs(A))) ? A[1] : NaN;
     }(g) / 3))), y = Math.pow(10, -f), m = Fe[8 + f / 3];
     return function(A) {
@@ -435,7 +435,7 @@ function Ai() {
     return Ai(t, e).unknown(s);
   }, ne.apply(n, arguments), n;
 }
-function Tt() {
+function Dt() {
   var i, t, e = Ai().unknown(void 0), s = e.domain, n = e.range, r = 0, a = 1, h = !1, o = 0, l = 0, u = 0.5;
   function d() {
     var c = s().length, g = a < r, p = g ? a : r, f = g ? r : a;
@@ -466,7 +466,7 @@ function Tt() {
   }, e.align = function(c) {
     return arguments.length ? (u = Math.max(0, Math.min(1, c)), d()) : u;
   }, e.copy = function() {
-    return Tt(s(), [r, a]).round(h).paddingInner(o).paddingOuter(l).align(u);
+    return Dt(s(), [r, a]).round(h).paddingInner(o).paddingOuter(l).align(u);
   }, ne.apply(d(), arguments);
 }
 function ws(i) {
@@ -476,7 +476,7 @@ function ws(i) {
   }, i;
 }
 function je() {
-  return ws(Tt.apply(null, arguments).paddingInner(1));
+  return ws(Dt.apply(null, arguments).paddingInner(1));
 }
 function Pi(i, t, e) {
   i.prototype = t.prototype = e, e.constructor = i;
@@ -489,7 +489,7 @@ function Ce(i, t) {
 }
 function Gt() {
 }
-var Et = 0.7, Nt = 1 / Et, zt = "\\s*([+-]?\\d+)\\s*", Bt = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*", ht = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*", xn = /^#([0-9a-f]{3,8})$/, vn = new RegExp("^rgb\\(" + [zt, zt, zt] + "\\)$"), bn = new RegExp("^rgb\\(" + [ht, ht, ht] + "\\)$"), kn = new RegExp("^rgba\\(" + [zt, zt, zt, Bt] + "\\)$"), Sn = new RegExp("^rgba\\(" + [ht, ht, ht, Bt] + "\\)$"), wn = new RegExp("^hsl\\(" + [Bt, ht, ht] + "\\)$"), Mn = new RegExp("^hsla\\(" + [Bt, ht, ht, Bt] + "\\)$"), Ee = { aliceblue: 15792383, antiquewhite: 16444375, aqua: 65535, aquamarine: 8388564, azure: 15794175, beige: 16119260, bisque: 16770244, black: 0, blanchedalmond: 16772045, blue: 255, blueviolet: 9055202, brown: 10824234, burlywood: 14596231, cadetblue: 6266528, chartreuse: 8388352, chocolate: 13789470, coral: 16744272, cornflowerblue: 6591981, cornsilk: 16775388, crimson: 14423100, cyan: 65535, darkblue: 139, darkcyan: 35723, darkgoldenrod: 12092939, darkgray: 11119017, darkgreen: 25600, darkgrey: 11119017, darkkhaki: 12433259, darkmagenta: 9109643, darkolivegreen: 5597999, darkorange: 16747520, darkorchid: 10040012, darkred: 9109504, darksalmon: 15308410, darkseagreen: 9419919, darkslateblue: 4734347, darkslategray: 3100495, darkslategrey: 3100495, darkturquoise: 52945, darkviolet: 9699539, deeppink: 16716947, deepskyblue: 49151, dimgray: 6908265, dimgrey: 6908265, dodgerblue: 2003199, firebrick: 11674146, floralwhite: 16775920, forestgreen: 2263842, fuchsia: 16711935, gainsboro: 14474460, ghostwhite: 16316671, gold: 16766720, goldenrod: 14329120, gray: 8421504, green: 32768, greenyellow: 11403055, grey: 8421504, honeydew: 15794160, hotpink: 16738740, indianred: 13458524, indigo: 4915330, ivory: 16777200, khaki: 15787660, lavender: 15132410, lavenderblush: 16773365, lawngreen: 8190976, lemonchiffon: 16775885, lightblue: 11393254, lightcoral: 15761536, lightcyan: 14745599, lightgoldenrodyellow: 16448210, lightgray: 13882323, lightgreen: 9498256, lightgrey: 13882323, lightpink: 16758465, lightsalmon: 16752762, lightseagreen: 2142890, lightskyblue: 8900346, lightslategray: 7833753, lightslategrey: 7833753, lightsteelblue: 11584734, lightyellow: 16777184, lime: 65280, limegreen: 3329330, linen: 16445670, magenta: 16711935, maroon: 8388608, mediumaquamarine: 6737322, mediumblue: 205, mediumorchid: 12211667, mediumpurple: 9662683, mediumseagreen: 3978097, mediumslateblue: 8087790, mediumspringgreen: 64154, mediumturquoise: 4772300, mediumvioletred: 13047173, midnightblue: 1644912, mintcream: 16121850, mistyrose: 16770273, moccasin: 16770229, navajowhite: 16768685, navy: 128, oldlace: 16643558, olive: 8421376, olivedrab: 7048739, orange: 16753920, orangered: 16729344, orchid: 14315734, palegoldenrod: 15657130, palegreen: 10025880, paleturquoise: 11529966, palevioletred: 14381203, papayawhip: 16773077, peachpuff: 16767673, peru: 13468991, pink: 16761035, plum: 14524637, powderblue: 11591910, purple: 8388736, rebeccapurple: 6697881, red: 16711680, rosybrown: 12357519, royalblue: 4286945, saddlebrown: 9127187, salmon: 16416882, sandybrown: 16032864, seagreen: 3050327, seashell: 16774638, sienna: 10506797, silver: 12632256, skyblue: 8900331, slateblue: 6970061, slategray: 7372944, slategrey: 7372944, snow: 16775930, springgreen: 65407, steelblue: 4620980, tan: 13808780, teal: 32896, thistle: 14204888, tomato: 16737095, turquoise: 4251856, violet: 15631086, wheat: 16113331, white: 16777215, whitesmoke: 16119285, yellow: 16776960, yellowgreen: 10145074 };
+var Et = 0.7, qt = 1 / Et, zt = "\\s*([+-]?\\d+)\\s*", Bt = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*", ht = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*", xn = /^#([0-9a-f]{3,8})$/, vn = new RegExp("^rgb\\(" + [zt, zt, zt] + "\\)$"), bn = new RegExp("^rgb\\(" + [ht, ht, ht] + "\\)$"), kn = new RegExp("^rgba\\(" + [zt, zt, zt, Bt] + "\\)$"), Sn = new RegExp("^rgba\\(" + [ht, ht, ht, Bt] + "\\)$"), wn = new RegExp("^hsl\\(" + [Bt, ht, ht] + "\\)$"), Mn = new RegExp("^hsla\\(" + [Bt, ht, ht, Bt] + "\\)$"), Ee = { aliceblue: 15792383, antiquewhite: 16444375, aqua: 65535, aquamarine: 8388564, azure: 15794175, beige: 16119260, bisque: 16770244, black: 0, blanchedalmond: 16772045, blue: 255, blueviolet: 9055202, brown: 10824234, burlywood: 14596231, cadetblue: 6266528, chartreuse: 8388352, chocolate: 13789470, coral: 16744272, cornflowerblue: 6591981, cornsilk: 16775388, crimson: 14423100, cyan: 65535, darkblue: 139, darkcyan: 35723, darkgoldenrod: 12092939, darkgray: 11119017, darkgreen: 25600, darkgrey: 11119017, darkkhaki: 12433259, darkmagenta: 9109643, darkolivegreen: 5597999, darkorange: 16747520, darkorchid: 10040012, darkred: 9109504, darksalmon: 15308410, darkseagreen: 9419919, darkslateblue: 4734347, darkslategray: 3100495, darkslategrey: 3100495, darkturquoise: 52945, darkviolet: 9699539, deeppink: 16716947, deepskyblue: 49151, dimgray: 6908265, dimgrey: 6908265, dodgerblue: 2003199, firebrick: 11674146, floralwhite: 16775920, forestgreen: 2263842, fuchsia: 16711935, gainsboro: 14474460, ghostwhite: 16316671, gold: 16766720, goldenrod: 14329120, gray: 8421504, green: 32768, greenyellow: 11403055, grey: 8421504, honeydew: 15794160, hotpink: 16738740, indianred: 13458524, indigo: 4915330, ivory: 16777200, khaki: 15787660, lavender: 15132410, lavenderblush: 16773365, lawngreen: 8190976, lemonchiffon: 16775885, lightblue: 11393254, lightcoral: 15761536, lightcyan: 14745599, lightgoldenrodyellow: 16448210, lightgray: 13882323, lightgreen: 9498256, lightgrey: 13882323, lightpink: 16758465, lightsalmon: 16752762, lightseagreen: 2142890, lightskyblue: 8900346, lightslategray: 7833753, lightslategrey: 7833753, lightsteelblue: 11584734, lightyellow: 16777184, lime: 65280, limegreen: 3329330, linen: 16445670, magenta: 16711935, maroon: 8388608, mediumaquamarine: 6737322, mediumblue: 205, mediumorchid: 12211667, mediumpurple: 9662683, mediumseagreen: 3978097, mediumslateblue: 8087790, mediumspringgreen: 64154, mediumturquoise: 4772300, mediumvioletred: 13047173, midnightblue: 1644912, mintcream: 16121850, mistyrose: 16770273, moccasin: 16770229, navajowhite: 16768685, navy: 128, oldlace: 16643558, olive: 8421376, olivedrab: 7048739, orange: 16753920, orangered: 16729344, orchid: 14315734, palegoldenrod: 15657130, palegreen: 10025880, paleturquoise: 11529966, palevioletred: 14381203, papayawhip: 16773077, peachpuff: 16767673, peru: 13468991, pink: 16761035, plum: 14524637, powderblue: 11591910, purple: 8388736, rebeccapurple: 6697881, red: 16711680, rosybrown: 12357519, royalblue: 4286945, saddlebrown: 9127187, salmon: 16416882, sandybrown: 16032864, seagreen: 3050327, seashell: 16774638, sienna: 10506797, silver: 12632256, skyblue: 8900331, slateblue: 6970061, slategray: 7372944, slategrey: 7372944, snow: 16775930, springgreen: 65407, steelblue: 4620980, tan: 13808780, teal: 32896, thistle: 14204888, tomato: 16737095, turquoise: 4251856, violet: 15631086, wheat: 16113331, white: 16777215, whitesmoke: 16119285, yellow: 16776960, yellowgreen: 10145074 };
 function Oe() {
   return this.rgb().formatHex();
 }
@@ -506,7 +506,7 @@ function Ge(i) {
 function Xt(i, t, e, s) {
   return s <= 0 && (i = t = e = NaN), new it(i, t, e, s);
 }
-function qi(i, t, e, s) {
+function Ti(i, t, e, s) {
   return arguments.length === 1 ? function(n) {
     return n instanceof Gt || (n = Vt(n)), n ? new it((n = n.rgb()).r, n.g, n.b, n.opacity) : new it();
   }(i) : new it(i, t, e, s ?? 1);
@@ -549,8 +549,8 @@ Pi(Gt, Vt, { copy: function(i) {
   return this.rgb().displayable();
 }, hex: Oe, formatHex: Oe, formatHsl: function() {
   return Ve(this).formatHsl();
-}, formatRgb: Le, toString: Le }), Pi(it, qi, Ce(Gt, { brighter: function(i) {
-  return i = i == null ? Nt : Math.pow(Nt, i), new it(this.r * i, this.g * i, this.b * i, this.opacity);
+}, formatRgb: Le, toString: Le }), Pi(it, Ti, Ce(Gt, { brighter: function(i) {
+  return i = i == null ? qt : Math.pow(qt, i), new it(this.r * i, this.g * i, this.b * i, this.opacity);
 }, darker: function(i) {
   return i = i == null ? Et : Math.pow(Et, i), new it(this.r * i, this.g * i, this.b * i, this.opacity);
 }, rgb: function() {
@@ -560,7 +560,7 @@ Pi(Gt, Vt, { copy: function(i) {
 }, hex: Ie, formatHex: Ie, formatRgb: Ze, toString: Ze })), Pi(rt, function(i, t, e, s) {
   return arguments.length === 1 ? Ve(i) : new rt(i, t, e, s ?? 1);
 }, Ce(Gt, { brighter: function(i) {
-  return i = i == null ? Nt : Math.pow(Nt, i), new rt(this.h, this.s, this.l * i, this.opacity);
+  return i = i == null ? qt : Math.pow(qt, i), new rt(this.h, this.s, this.l * i, this.opacity);
 }, darker: function(i) {
   return i = i == null ? Et : Math.pow(Et, i), new rt(this.h, this.s, this.l * i, this.opacity);
 }, rgb: function() {
@@ -593,7 +593,7 @@ function Ms(i, t) {
 const Ye = function i(t) {
   var e = Rn(t);
   function s(n, r) {
-    var a = e((n = qi(n)).r, (r = qi(r)).r), h = e(n.g, r.g), o = e(n.b, r.b), l = Ms(n.opacity, r.opacity);
+    var a = e((n = Ti(n)).r, (r = Ti(r)).r), h = e(n.g, r.g), o = e(n.b, r.b), l = Ms(n.opacity, r.opacity);
     return function(u) {
       return n.r = a(u), n.g = h(u), n.b = o(u), n.opacity = l(u), n + "";
     };
@@ -642,10 +642,10 @@ function Wn(i, t) {
     return n;
   };
 }
-var Ni = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g, Wi = new RegExp(Ni.source, "g");
+var qi = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g, Wi = new RegExp(qi.source, "g");
 function jn(i, t) {
-  var e, s, n, r = Ni.lastIndex = Wi.lastIndex = 0, a = -1, h = [], o = [];
-  for (i += "", t += ""; (e = Ni.exec(i)) && (s = Wi.exec(t)); )
+  var e, s, n, r = qi.lastIndex = Wi.lastIndex = 0, a = -1, h = [], o = [];
+  for (i += "", t += ""; (e = qi.exec(i)) && (s = Wi.exec(t)); )
     (n = s.index) > r && (n = t.slice(r, n), h[a] ? h[a] += n : h[++a] = n), (e = e[0]) === (s = s[0]) ? h[a] ? h[a] += s : h[++a] = s : (h[++a] = null, o.push({ i: a, x: ri(e, s) })), r = Wi.lastIndex;
   return r < t.length && (n = t.slice(r), h[a] ? h[a] += n : h[++a] = n), h.length < 2 ? o[0] ? function(l) {
     return function(u) {
@@ -675,7 +675,7 @@ function Cn(i, t) {
 function En(i) {
   return +i;
 }
-var He = [0, 1];
+var Ne = [0, 1];
 function Mt(i) {
   return i;
 }
@@ -704,7 +704,7 @@ function Ln(i, t, e) {
   };
 }
 function Gn() {
-  var i, t, e, s, n, r, a = He, h = He, o = he, l = Mt;
+  var i, t, e, s, n, r, a = Ne, h = Ne, o = he, l = Mt;
   function u() {
     var c = Math.min(a.length, h.length);
     return l !== Mt && (l = function(g, p) {
@@ -754,7 +754,7 @@ function ai(i) {
 function Ki(i) {
   this.fill = i.fill === void 0 ? " " : i.fill + "", this.align = i.align === void 0 ? ">" : i.align + "", this.sign = i.sign === void 0 ? "-" : i.sign + "", this.symbol = i.symbol === void 0 ? "" : i.symbol + "", this.zero = !!i.zero, this.width = i.width === void 0 ? void 0 : +i.width, this.comma = !!i.comma, this.precision = i.precision === void 0 ? void 0 : +i.precision, this.trim = !!i.trim, this.type = i.type === void 0 ? "" : i.type + "";
 }
-function De(i, t) {
+function He(i, t) {
   var e = hi(i, t);
   if (!e)
     return i + "";
@@ -764,45 +764,45 @@ function De(i, t) {
 ai.prototype = Ki.prototype, Ki.prototype.toString = function() {
   return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === void 0 ? "" : Math.max(1, 0 | this.width)) + (this.comma ? "," : "") + (this.precision === void 0 ? "" : "." + Math.max(0, 0 | this.precision)) + (this.trim ? "~" : "") + this.type;
 };
-const Te = { "%": (i, t) => (100 * i).toFixed(t), b: (i) => Math.round(i).toString(2), c: (i) => i + "", d: function(i) {
+const De = { "%": (i, t) => (100 * i).toFixed(t), b: (i) => Math.round(i).toString(2), c: (i) => i + "", d: function(i) {
   return Math.abs(i = Math.round(i)) >= 1e21 ? i.toLocaleString("en").replace(/,/g, "") : i.toString(10);
-}, e: (i, t) => i.toExponential(t), f: (i, t) => i.toFixed(t), g: (i, t) => i.toPrecision(t), o: (i) => Math.round(i).toString(8), p: (i, t) => De(100 * i, t), r: De, s: function(i, t) {
+}, e: (i, t) => i.toExponential(t), f: (i, t) => i.toFixed(t), g: (i, t) => i.toPrecision(t), o: (i) => Math.round(i).toString(8), p: (i, t) => He(100 * i, t), r: He, s: function(i, t) {
   var e = hi(i, t);
   if (!e)
     return i + "";
   var s = e[0], n = e[1], r = n - (Rs = 3 * Math.max(-8, Math.min(8, Math.floor(n / 3)))) + 1, a = s.length;
   return r === a ? s : r > a ? s + new Array(r - a + 1).join("0") : r > 0 ? s.slice(0, r) + "." + s.slice(r) : "0." + new Array(1 - r).join("0") + hi(i, Math.max(0, t + r - 1))[0];
 }, X: (i) => Math.round(i).toString(16).toUpperCase(), x: (i) => Math.round(i).toString(16) };
-function qe(i) {
+function Te(i) {
   return i;
 }
-var ji, Ps, zs, Ne = Array.prototype.map, Xe = ["y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
+var ji, Ps, zs, qe = Array.prototype.map, Xe = ["y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
 function Zn(i) {
-  var t, e, s = i.grouping === void 0 || i.thousands === void 0 ? qe : (t = Ne.call(i.grouping, Number), e = i.thousands + "", function(c, g) {
+  var t, e, s = i.grouping === void 0 || i.thousands === void 0 ? Te : (t = qe.call(i.grouping, Number), e = i.thousands + "", function(c, g) {
     for (var p = c.length, f = [], y = 0, m = t[0], A = 0; p > 0 && m > 0 && (A + m + 1 > g && (m = Math.max(1, g - A)), f.push(c.substring(p -= m, p + m)), !((A += m + 1) > g)); )
       m = t[y = (y + 1) % t.length];
     return f.reverse().join(e);
-  }), n = i.currency === void 0 ? "" : i.currency[0] + "", r = i.currency === void 0 ? "" : i.currency[1] + "", a = i.decimal === void 0 ? "." : i.decimal + "", h = i.numerals === void 0 ? qe : function(c) {
+  }), n = i.currency === void 0 ? "" : i.currency[0] + "", r = i.currency === void 0 ? "" : i.currency[1] + "", a = i.decimal === void 0 ? "." : i.decimal + "", h = i.numerals === void 0 ? Te : function(c) {
     return function(g) {
       return g.replace(/[0-9]/g, function(p) {
         return c[+p];
       });
     };
-  }(Ne.call(i.numerals, String)), o = i.percent === void 0 ? "%" : i.percent + "", l = i.minus === void 0 ? "−" : i.minus + "", u = i.nan === void 0 ? "NaN" : i.nan + "";
+  }(qe.call(i.numerals, String)), o = i.percent === void 0 ? "%" : i.percent + "", l = i.minus === void 0 ? "−" : i.minus + "", u = i.nan === void 0 ? "NaN" : i.nan + "";
   function d(c) {
     var g = (c = ai(c)).fill, p = c.align, f = c.sign, y = c.symbol, m = c.zero, A = c.width, b = c.comma, S = c.precision, w = c.trim, v = c.type;
-    v === "n" ? (b = !0, v = "g") : Te[v] || (S === void 0 && (S = 12), w = !0, v = "g"), (m || g === "0" && p === "=") && (m = !0, g = "0", p = "=");
-    var M = y === "$" ? n : y === "#" && /[boxX]/.test(v) ? "0" + v.toLowerCase() : "", j = y === "$" ? r : /[%p]/.test(v) ? o : "", C = Te[v], P = /[defgprs%]/.test(v);
+    v === "n" ? (b = !0, v = "g") : De[v] || (S === void 0 && (S = 12), w = !0, v = "g"), (m || g === "0" && p === "=") && (m = !0, g = "0", p = "=");
+    var M = y === "$" ? n : y === "#" && /[boxX]/.test(v) ? "0" + v.toLowerCase() : "", j = y === "$" ? r : /[%p]/.test(v) ? o : "", C = De[v], P = /[defgprs%]/.test(v);
     function F(k) {
       var R, O, I, L = M, E = j;
       if (v === "c")
         E = C(k) + E, k = "";
       else {
-        var T = (k = +k) < 0 || 1 / k < 0;
-        if (k = isNaN(k) ? u : C(Math.abs(k), S), w && (k = function(H) {
+        var D = (k = +k) < 0 || 1 / k < 0;
+        if (k = isNaN(k) ? u : C(Math.abs(k), S), w && (k = function(N) {
           t:
-            for (var et, gt = H.length, B = 1, V = -1; B < gt; ++B)
-              switch (H[B]) {
+            for (var et, gt = N.length, B = 1, V = -1; B < gt; ++B)
+              switch (N[B]) {
                 case ".":
                   V = et = B;
                   break;
@@ -810,12 +810,12 @@ function Zn(i) {
                   V === 0 && (V = B), et = B;
                   break;
                 default:
-                  if (!+H[B])
+                  if (!+N[B])
                     break t;
                   V > 0 && (V = 0);
               }
-          return V > 0 ? H.slice(0, V) + H.slice(et + 1) : H;
-        }(k)), T && +k == 0 && f !== "+" && (T = !1), L = (T ? f === "(" ? f : l : f === "-" || f === "(" ? "" : f) + L, E = (v === "s" ? Xe[8 + Rs / 3] : "") + E + (T && f === "(" ? ")" : ""), P) {
+          return V > 0 ? N.slice(0, V) + N.slice(et + 1) : N;
+        }(k)), D && +k == 0 && f !== "+" && (D = !1), L = (D ? f === "(" ? f : l : f === "-" || f === "(" ? "" : f) + L, E = (v === "s" ? Xe[8 + Rs / 3] : "") + E + (D && f === "(" ? ")" : ""), P) {
           for (R = -1, O = k.length; ++R < O; )
             if (48 > (I = k.charCodeAt(R)) || I > 57) {
               E = (I === 46 ? a + k.slice(R + 1) : k.slice(R)) + E, k = k.slice(0, R);
@@ -824,7 +824,7 @@ function Zn(i) {
         }
       }
       b && !m && (k = s(k, 1 / 0));
-      var q = L.length + k.length + E.length, G = q < A ? new Array(A - q + 1).join(g) : "";
+      var T = L.length + k.length + E.length, G = T < A ? new Array(A - T + 1).join(g) : "";
       switch (b && m && (k = s(G + k, G.length ? A - E.length : 1 / 0), G = ""), p) {
         case "<":
           k = L + k + E + G;
@@ -833,7 +833,7 @@ function Zn(i) {
           k = L + G + k + E;
           break;
         case "^":
-          k = G.slice(0, q = G.length >> 1) + L + k + E + G.slice(q);
+          k = G.slice(0, T = G.length >> 1) + L + k + E + G.slice(T);
           break;
         default:
           k = G + L + k + E;
@@ -854,7 +854,7 @@ function Zn(i) {
 function Bn(i, t, e, s) {
   var n, r = function(h, o, l) {
     var u = Math.abs(o - h) / Math.max(0, l), d = Math.pow(10, Math.floor(Math.log(u) / Math.LN10)), c = u / d;
-    return c >= Vi ? d *= 10 : c >= Yi ? d *= 5 : c >= Hi && (d *= 2), o < h ? -d : d;
+    return c >= Vi ? d *= 10 : c >= Yi ? d *= 5 : c >= Ni && (d *= 2), o < h ? -d : d;
   }(i, t, e);
   switch ((s = ai(s ?? ",f")).type) {
     case "s":
@@ -944,23 +944,23 @@ function Yn(i) {
     return e === Qi && t.documentElement.namespaceURI === Qi ? t.createElement(i) : t.createElementNS(e, i);
   };
 }
-function Hn(i) {
+function Nn(i) {
   return function() {
     return this.ownerDocument.createElementNS(i.space, i.local);
   };
 }
 function Qe(i) {
   var t = Fs(i);
-  return (t.local ? Hn : Yn)(t);
+  return (t.local ? Nn : Yn)(t);
 }
-function Dn() {
+function Hn() {
 }
 function Ue(i) {
-  return i == null ? Dn : function() {
+  return i == null ? Hn : function() {
     return this.querySelector(i);
   };
 }
-function Tn() {
+function Dn() {
   return [];
 }
 function Je(i) {
@@ -978,13 +978,13 @@ oi.prototype = { constructor: oi, appendChild: function(i) {
 }, querySelectorAll: function(i) {
   return this._parent.querySelectorAll(i);
 } };
-function qn(i, t, e, s, n, r) {
+function Tn(i, t, e, s, n, r) {
   for (var a, h = 0, o = t.length, l = r.length; h < l; ++h)
     (a = t[h]) ? (a.__data__ = r[h], s[h] = a) : e[h] = new oi(i, r[h]);
   for (; h < o; ++h)
     (a = t[h]) && (n[h] = a);
 }
-function Nn(i, t, e, s, n, r, a) {
+function qn(i, t, e, s, n, r, a) {
   var h, o, l, u = {}, d = t.length, c = r.length, g = new Array(d);
   for (h = 0; h < d; ++h)
     (o = t[h]) && (g[h] = l = "$" + a.call(o, o.__data__, h, t), l in u ? n[h] = o : u[l] = o);
@@ -1304,7 +1304,7 @@ function zr(i, t, e, s = 1) {
   }
   return o;
 }
-function qt(i, t) {
+function Tt(i, t) {
   var e;
   const s = t.hachureAngle + 90;
   let n = t.hachureGap;
@@ -1320,7 +1320,7 @@ $.prototype = { constructor: $, select: function(i) {
   return new $(s, this._parents);
 }, selectAll: function(i) {
   typeof i != "function" && (i = function(u) {
-    return u == null ? Tn : function() {
+    return u == null ? Dn : function() {
       return this.querySelectorAll(u);
     };
   }(i));
@@ -1343,7 +1343,7 @@ $.prototype = { constructor: $, select: function(i) {
     return g = new Array(this.size()), l = -1, this.each(function(w) {
       g[++l] = w;
     }), g;
-  var e = t ? Nn : qn, s = this._parents, n = this._groups;
+  var e = t ? qn : Tn, s = this._parents, n = this._groups;
   typeof i != "function" && (i = function(w) {
     return function() {
       return w;
@@ -1494,7 +1494,7 @@ class oe {
     return this._fillPolygons(t, e);
   }
   _fillPolygons(t, e) {
-    const s = qt(t, e);
+    const s = Tt(t, e);
     return { type: "fillSketch", ops: this.renderLines(s, e) };
   }
   renderLines(t, e) {
@@ -1512,7 +1512,7 @@ class Fr extends oe {
   fillPolygons(t, e) {
     let s = e.hachureGap;
     s < 0 && (s = 4 * e.strokeWidth), s = Math.max(s, 0.1);
-    const n = qt(t, Object.assign({}, e, { hachureGap: s })), r = Math.PI / 180 * e.hachureAngle, a = [], h = 0.5 * s * Math.cos(r), o = 0.5 * s * Math.sin(r);
+    const n = Tt(t, Object.assign({}, e, { hachureGap: s })), r = Math.PI / 180 * e.hachureAngle, a = [], h = 0.5 * s * Math.cos(r), o = 0.5 * s * Math.sin(r);
     for (const [l, u] of n)
       yi([l, u]) && a.push([[l[0] - h, l[1] + o], [...u]], [[l[0] + h, l[1] - o], [...u]]);
     return { type: "fillSketch", ops: this.renderLines(a, e) };
@@ -1529,7 +1529,7 @@ class jr {
     this.helper = t;
   }
   fillPolygons(t, e) {
-    const s = qt(t, e = Object.assign({}, e, { hachureAngle: 0 }));
+    const s = Tt(t, e = Object.assign({}, e, { hachureAngle: 0 }));
     return this.dotsOnLines(s, e);
   }
   dotsOnLines(t, e) {
@@ -1554,7 +1554,7 @@ let Cr = class {
     this.helper = i;
   }
   fillPolygons(i, t) {
-    const e = qt(i, t);
+    const e = Tt(i, t);
     return { type: "fillSketch", ops: this.dashedLine(e, t) };
   }
   dashedLine(i, t) {
@@ -1576,7 +1576,7 @@ class Er {
     this.helper = t;
   }
   fillPolygons(t, e) {
-    const s = e.hachureGap < 0 ? 4 * e.strokeWidth : e.hachureGap, n = e.zigzagOffset < 0 ? s : e.zigzagOffset, r = qt(t, e = Object.assign({}, e, { hachureGap: s + n }));
+    const s = e.hachureGap < 0 ? 4 * e.strokeWidth : e.hachureGap, n = e.zigzagOffset < 0 ? s : e.zigzagOffset, r = Tt(t, e = Object.assign({}, e, { hachureGap: s + n }));
     return { type: "fillSketch", ops: this.zigzagLines(r, n, e) };
   }
   zigzagLines(t, e, s) {
@@ -1785,7 +1785,7 @@ function Ys(i, t, e, s, n, r, a, h, o, l) {
     const R = (i - e) / 2, O = (t - s) / 2;
     let I = R * R / (n * n) + O * O / (r * r);
     I > 1 && (I = Math.sqrt(I), n *= I, r *= I);
-    const L = n * n, E = r * r, T = L * E - L * O * O - E * R * R, q = L * O * O + E * R * R, G = (h === o ? -1 : 1) * Math.sqrt(Math.abs(T / q));
+    const L = n * n, E = r * r, D = L * E - L * O * O - E * R * R, T = L * O * O + E * R * R, G = (h === o ? -1 : 1) * Math.sqrt(Math.abs(D / T));
     f = G * n * O / r + (i + e) / 2, y = G * -r * R / n + (t + s) / 2, g = Math.asin(parseFloat(((t - y) / r).toFixed(9))), p = Math.asin(parseFloat(((s - y) / r).toFixed(9))), i < f && (g = Math.PI - g), e < f && (p = Math.PI - p), g < 0 && (g = 2 * Math.PI + g), p < 0 && (p = 2 * Math.PI + p), o && g > p && (g -= 2 * Math.PI), !o && p > g && (p -= 2 * Math.PI);
   }
   let m = p - g;
@@ -1812,11 +1812,11 @@ const Lr = { randOffset: function(i, t) {
 }, randOffsetWithRange: function(i, t, e) {
   return li(i, t, e);
 }, ellipse: function(i, t, e, s, n) {
-  return Ui(i, t, n, Ds(e, s, n)).opset;
+  return Ui(i, t, n, Hs(e, s, n)).opset;
 }, doubleLineOps: function(i, t, e, s, n) {
   return ct(i, t, e, s, n, !0);
 } };
-function Hs(i, t, e, s, n) {
+function Ns(i, t, e, s, n) {
   return { type: "path", ops: ct(i, t, e, s, n) };
 }
 function Qt(i, t, e) {
@@ -1827,7 +1827,7 @@ function Qt(i, t, e) {
       n.push(...ct(i[r][0], i[r][1], i[r + 1][0], i[r + 1][1], e));
     return t && n.push(...ct(i[s - 1][0], i[s - 1][1], i[0][0], i[0][1], e)), { type: "path", ops: n };
   }
-  return s === 2 ? Hs(i[0][0], i[0][1], i[1][0], i[1][1], e) : { type: "path", ops: [] };
+  return s === 2 ? Ns(i[0][0], i[0][1], i[1][0], i[1][1], e) : { type: "path", ops: [] };
 }
 function _e(i, t) {
   if (i.length) {
@@ -1846,7 +1846,7 @@ function _e(i, t) {
   }
   return { type: "path", ops: [] };
 }
-function Ds(i, t, e) {
+function Hs(i, t, e) {
   const s = Math.sqrt(2 * Math.PI * Math.sqrt((Math.pow(i / 2, 2) + Math.pow(t / 2, 2)) / 2)), n = Math.ceil(Math.max(e.curveStepCount, e.curveStepCount / Math.sqrt(200) * s)), r = 2 * Math.PI / n;
   let a = Math.abs(i / 2), h = Math.abs(t / 2);
   const o = 1 - e.curveFitting;
@@ -1940,11 +1940,11 @@ function is(i) {
   const t = Object.assign({}, i);
   return t.randomizer = void 0, i.seed && (t.seed = i.seed + 1), t;
 }
-function Ts(i) {
+function Ds(i) {
   return i.randomizer || (i.randomizer = new Or(i.seed || 0)), i.randomizer.next();
 }
 function li(i, t, e, s = 1) {
-  return e.roughness * s * (Ts(e) * (t - i) + i);
+  return e.roughness * s * (Ds(e) * (t - i) + i);
 }
 function W(i, t, e = 1) {
   return li(-i, i, t, e);
@@ -1962,7 +1962,7 @@ function Ji(i, t, e, s, n, r, a) {
   l = o < 200 ? 1 : o > 500 ? 0.4 : -16668e-7 * o + 1.233334;
   let u = n.maxRandomnessOffset || 0;
   u * u * 100 > h && (u = o / 10);
-  const d = u / 2, c = 0.2 + 0.2 * Ts(n);
+  const d = u / 2, c = 0.2 + 0.2 * Ds(n);
   let g = n.bowing * n.maxRandomnessOffset * (s - t) / 200, p = n.bowing * n.maxRandomnessOffset * (i - e) / 200;
   g = W(g, n, l), p = W(p, n, l);
   const f = [], y = () => W(d, n, l), m = () => W(u, n, l), A = n.preserveVertices;
@@ -2123,7 +2123,7 @@ class Br {
   }
   line(t, e, s, n, r) {
     const a = this._o(r);
-    return this._d("line", [Hs(t, e, s, n, a)], a);
+    return this._d("line", [Ns(t, e, s, n, a)], a);
   }
   rectangle(t, e, s, n, r) {
     const a = this._o(r), h = [], o = function(l, u, d, c, g) {
@@ -2138,7 +2138,7 @@ class Br {
     return a.stroke !== tt && h.push(o), this._d("rectangle", h, a);
   }
   ellipse(t, e, s, n, r) {
-    const a = this._o(r), h = [], o = Ds(s, n, a), l = Ui(t, e, a, o);
+    const a = this._o(r), h = [], o = Hs(s, n, a), l = Ui(t, e, a, o);
     if (a.fill)
       if (a.fillStyle === "solid") {
         const u = Ui(t, e, a, o).opset;
@@ -2371,7 +2371,7 @@ class Vr {
     return this.draw(s);
   }
 }
-var D = (i, t) => new Vr(i, t);
+var H = (i, t) => new Vr(i, t);
 class lt {
   constructor(t) {
     this.el = t.element, this.element = t.element, this.title = t.title, this.titleFontSize = t.titleFontSize || "17px", this.font = t.font || 0, this.fillStyle = t.fillStyle, this.tooltipFontSize = t.tooltipFontSize || "0.95rem", this.bowing = t.bowing || 0, this.simplification = t.simplification || 0.2, this.interactive = t.interactive !== !1, this.dataFormat = typeof t.data == "object" ? "object" : "file";
@@ -2417,8 +2417,8 @@ class lh extends lt {
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
   }
   resolveData(t) {
     return typeof t != "string" ? () => {
@@ -2435,13 +2435,13 @@ class lh extends lt {
   }
   addScales() {
     const t = this;
-    this.xScale = Tt().rangeRound([0, this.width]).padding(this.padding).domain(this.dataFormat === "file" ? this.data.map((e) => e[t.labels]) : this.data[t.labels]), this.yScale = Z().rangeRound([this.height, 0]).domain(this.dataFormat === "file" ? [0, Q(this.data, (e) => +e[t.values])] : [0, Q(this.data[t.values])]);
+    this.xScale = Dt().rangeRound([0, this.width]).padding(this.padding).domain(this.dataFormat === "file" ? this.data.map((e) => e[t.labels]) : this.data[t.labels]), this.yScale = Z().rangeRound([this.height, 0]).domain(this.dataFormat === "file" ? [0, Q(this.data, (e) => +e[t.values])] : [0, Q(this.data[t.values])]);
   }
   addLabels() {
     this.xLabel !== "" && this.svg.append("text").attr("x", this.width / 2).attr("y", this.height + this.margin.bottom / 2).attr("dx", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.xLabel), this.yLabel !== "" && this.svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 - this.margin.left / 1.4).attr("x", 0 - this.height / 2).attr("dy", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.yLabel);
   }
   addAxes() {
-    const t = Ht(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Dt(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
+    const t = Nt(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Ht(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
     this.svg.append("g").attr("transform", "translate(0," + this.height + ")").call(t).attr("class", `xAxis${this.graphClass}`).selectAll("text").attr("transform", "translate(-10,0)rotate(-45)").style("text-anchor", "end").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.8, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize).style("opacity", 0.9), this.svg.append("g").call(e).attr("class", `yAxis${this.graphClass}`).selectAll("text").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize).style("opacity", 0.9), z("path.domain").attr("stroke", "transparent");
   }
   makeAxesRough(t, e) {
@@ -2471,7 +2471,7 @@ class lh extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = D(this.roughSvg, { options: { fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = H(this.roughSvg, { options: { fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   drawFromObject() {
     this.initRoughObjects(), this.addScales(), this.addAxes(), this.makeAxesRough(this.roughSvg, this.rcAxis), this.addLabels(), this.data.values.forEach((t, e) => {
@@ -2504,8 +2504,8 @@ class uh extends lt {
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
   }
   resolveData(t) {
     return typeof t != "string" ? () => {
@@ -2522,13 +2522,13 @@ class uh extends lt {
   }
   addScales() {
     const t = this;
-    this.yScale = Tt().rangeRound([0, this.height]).padding(this.padding).domain(this.dataFormat === "file" ? this.data.map((e) => e[t.labels]) : this.data[t.labels]), this.xScale = Z().rangeRound([0, this.width]).domain(this.dataFormat === "file" ? [0, Q(this.data, (e) => +e[t.values])] : [0, Q(this.data[t.values])]);
+    this.yScale = Dt().rangeRound([0, this.height]).padding(this.padding).domain(this.dataFormat === "file" ? this.data.map((e) => e[t.labels]) : this.data[t.labels]), this.xScale = Z().rangeRound([0, this.width]).domain(this.dataFormat === "file" ? [0, Q(this.data, (e) => +e[t.values])] : [0, Q(this.data[t.values])]);
   }
   addLabels() {
     this.xLabel !== "" && this.svg.append("text").attr("x", this.width / 2).attr("y", this.height + this.margin.bottom / 2.4).attr("dx", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.xLabel), this.yLabel !== "" && this.svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 - this.margin.left / 1.5).attr("x", 0 - this.height / 2).attr("dy", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.yLabel);
   }
   addAxes() {
-    const t = Ht(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Dt(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
+    const t = Nt(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Ht(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
     this.svg.append("g").attr("transform", `translate(0, ${this.height})`).call(t).attr("class", `xAxis${this.graphClass}`).selectAll("text").attr("transform", "translate(-10,0)rotate(-45)").style("text-anchor", "end").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize).style("opacity", 0.85), this.svg.append("g").call(e).attr("class", `yAxis${this.graphClass}`).selectAll("text").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize).style("opacity", 0.85), z("path.domain").attr("stroke", "transparent");
   }
   makeAxesRough(t, e) {
@@ -2558,7 +2558,7 @@ class uh extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = D(this.roughSvg, { options: { fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = H(this.roughSvg, { options: { fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   drawFromObject() {
     this.initRoughObjects(), this.addScales(), this.addAxes(), this.makeAxesRough(this.roughSvg, this.rcAxis), this.addLabels(), this.data.values.forEach((t, e) => {
@@ -2619,31 +2619,31 @@ ie.prototype = ue.prototype = { constructor: ie, moveTo: function(i, t) {
 }, toString: function() {
   return this._;
 } };
-var rs = Math.abs, N = Math.atan2, pt = Math.cos, Hr = Math.max, Gi = Math.min, nt = Math.sin, Rt = Math.sqrt, _ = 1e-12, It = Math.PI, di = It / 2, ii = 2 * It;
+var rs = Math.abs, q = Math.atan2, pt = Math.cos, Nr = Math.max, Gi = Math.min, nt = Math.sin, Rt = Math.sqrt, _ = 1e-12, It = Math.PI, di = It / 2, ii = 2 * It;
 function hs(i) {
   return i >= 1 ? di : i <= -1 ? -di : Math.asin(i);
 }
-function Dr(i) {
+function Hr(i) {
   return i.innerRadius;
 }
-function Tr(i) {
+function Dr(i) {
   return i.outerRadius;
 }
-function qr(i) {
+function Tr(i) {
   return i.startAngle;
 }
-function Nr(i) {
+function qr(i) {
   return i.endAngle;
 }
 function Xr(i) {
   return i && i.padAngle;
 }
 function _t(i, t, e, s, n, r, a) {
-  var h = i - e, o = t - s, l = (a ? r : -r) / Rt(h * h + o * o), u = l * o, d = -l * h, c = i + u, g = t + d, p = e + u, f = s + d, y = (c + p) / 2, m = (g + f) / 2, A = p - c, b = f - g, S = A * A + b * b, w = n - r, v = c * f - p * g, M = (b < 0 ? -1 : 1) * Rt(Hr(0, w * w * S - v * v)), j = (v * b - A * M) / S, C = (-v * A - b * M) / S, P = (v * b + A * M) / S, F = (-v * A + b * M) / S, k = j - y, R = C - m, O = P - y, I = F - m;
+  var h = i - e, o = t - s, l = (a ? r : -r) / Rt(h * h + o * o), u = l * o, d = -l * h, c = i + u, g = t + d, p = e + u, f = s + d, y = (c + p) / 2, m = (g + f) / 2, A = p - c, b = f - g, S = A * A + b * b, w = n - r, v = c * f - p * g, M = (b < 0 ? -1 : 1) * Rt(Nr(0, w * w * S - v * v)), j = (v * b - A * M) / S, C = (-v * A - b * M) / S, P = (v * b + A * M) / S, F = (-v * A + b * M) / S, k = j - y, R = C - m, O = P - y, I = F - m;
   return k * k + R * R > O * O + I * I && (j = P, C = F), { cx: j, cy: C, x01: -u, y01: -d, x11: j * (n / w - 1), y11: C * (n / w - 1) };
 }
 function gi() {
-  var i = Dr, t = Tr, e = Y(0), s = null, n = qr, r = Nr, a = Xr, h = null;
+  var i = Hr, t = Dr, e = Y(0), s = null, n = Tr, r = qr, a = Xr, h = null;
   function o() {
     var l, u, d = +i.apply(this, arguments), c = +t.apply(this, arguments), g = n.apply(this, arguments) - di, p = r.apply(this, arguments) - di, f = rs(p - g), y = p > g;
     if (h || (h = l = ue()), c < d && (u = c, c = d, d = u), c > _)
@@ -2655,21 +2655,21 @@ function gi() {
           var O = hs(P / d * nt(C)), I = hs(P / c * nt(C));
           (M -= 2 * O) > _ ? (w += O *= y ? 1 : -1, v -= O) : (M = 0, w = v = (g + p) / 2), (j -= 2 * I) > _ ? (b += I *= y ? 1 : -1, S -= I) : (j = 0, b = S = (g + p) / 2);
         }
-        var L = c * pt(b), E = c * nt(b), T = d * pt(v), q = d * nt(v);
+        var L = c * pt(b), E = c * nt(b), D = d * pt(v), T = d * nt(v);
         if (F > _) {
-          var G, H = c * pt(S), et = c * nt(S), gt = d * pt(w), B = d * nt(w);
+          var G, N = c * pt(S), et = c * nt(S), gt = d * pt(w), B = d * nt(w);
           if (f < It && (G = function(ft, Si, tn, en, fe, pe, sn, nn) {
             var me = tn - ft, Ae = en - Si, ye = sn - fe, xe = nn - pe, Ft = xe * me - ye * Ae;
             if (!(Ft * Ft < _))
               return [ft + (Ft = (ye * (Si - pe) - xe * (ft - fe)) / Ft) * me, Si + Ft * Ae];
-          }(L, E, gt, B, H, et, T, q))) {
-            var V = L - G[0], vi = E - G[1], bi = H - G[0], ki = et - G[1], de = 1 / nt(function(ft) {
+          }(L, E, gt, B, N, et, D, T))) {
+            var V = L - G[0], vi = E - G[1], bi = N - G[0], ki = et - G[1], de = 1 / nt(function(ft) {
               return ft > 1 ? 0 : ft < -1 ? It : Math.acos(ft);
             }((V * bi + vi * ki) / (Rt(V * V + vi * vi) * Rt(bi * bi + ki * ki))) / 2), ge = Rt(G[0] * G[0] + G[1] * G[1]);
             k = Gi(F, (d - ge) / (de - 1)), R = Gi(F, (c - ge) / (de + 1));
           }
         }
-        j > _ ? R > _ ? (m = _t(gt, B, L, E, c, R, y), A = _t(H, et, T, q, c, R, y), h.moveTo(m.cx + m.x01, m.cy + m.y01), R < F ? h.arc(m.cx, m.cy, R, N(m.y01, m.x01), N(A.y01, A.x01), !y) : (h.arc(m.cx, m.cy, R, N(m.y01, m.x01), N(m.y11, m.x11), !y), h.arc(0, 0, c, N(m.cy + m.y11, m.cx + m.x11), N(A.cy + A.y11, A.cx + A.x11), !y), h.arc(A.cx, A.cy, R, N(A.y11, A.x11), N(A.y01, A.x01), !y))) : (h.moveTo(L, E), h.arc(0, 0, c, b, S, !y)) : h.moveTo(L, E), d > _ && M > _ ? k > _ ? (m = _t(T, q, H, et, d, -k, y), A = _t(L, E, gt, B, d, -k, y), h.lineTo(m.cx + m.x01, m.cy + m.y01), k < F ? h.arc(m.cx, m.cy, k, N(m.y01, m.x01), N(A.y01, A.x01), !y) : (h.arc(m.cx, m.cy, k, N(m.y01, m.x01), N(m.y11, m.x11), !y), h.arc(0, 0, d, N(m.cy + m.y11, m.cx + m.x11), N(A.cy + A.y11, A.cx + A.x11), y), h.arc(A.cx, A.cy, k, N(A.y11, A.x11), N(A.y01, A.x01), !y))) : h.arc(0, 0, d, v, w, y) : h.lineTo(T, q);
+        j > _ ? R > _ ? (m = _t(gt, B, L, E, c, R, y), A = _t(N, et, D, T, c, R, y), h.moveTo(m.cx + m.x01, m.cy + m.y01), R < F ? h.arc(m.cx, m.cy, R, q(m.y01, m.x01), q(A.y01, A.x01), !y) : (h.arc(m.cx, m.cy, R, q(m.y01, m.x01), q(m.y11, m.x11), !y), h.arc(0, 0, c, q(m.cy + m.y11, m.cx + m.x11), q(A.cy + A.y11, A.cx + A.x11), !y), h.arc(A.cx, A.cy, R, q(A.y11, A.x11), q(A.y01, A.x01), !y))) : (h.moveTo(L, E), h.arc(0, 0, c, b, S, !y)) : h.moveTo(L, E), d > _ && M > _ ? k > _ ? (m = _t(D, T, N, et, d, -k, y), A = _t(L, E, gt, B, d, -k, y), h.lineTo(m.cx + m.x01, m.cy + m.y01), k < F ? h.arc(m.cx, m.cy, k, q(m.y01, m.x01), q(A.y01, A.x01), !y) : (h.arc(m.cx, m.cy, k, q(m.y01, m.x01), q(m.y11, m.x11), !y), h.arc(0, 0, d, q(m.cy + m.y11, m.cx + m.x11), q(A.cy + A.y11, A.cx + A.x11), y), h.arc(A.cx, A.cy, k, q(A.y11, A.x11), q(A.y01, A.x01), !y))) : h.arc(0, 0, d, v, w, y) : h.lineTo(D, T);
       }
     else
       h.moveTo(0, 0);
@@ -2697,11 +2697,11 @@ function gi() {
     return arguments.length ? (h = l ?? null, o) : h;
   }, o;
 }
-function qs(i) {
+function Ts(i) {
   this._context = i;
 }
 function Kr(i) {
-  return new qs(i);
+  return new Ts(i);
 }
 function Qr(i) {
   return i[0];
@@ -2743,7 +2743,7 @@ function fi() {
     return arguments.length ? (r = typeof h == "function" ? h : Y(+h), a) : r;
   }, a;
 }
-qs.prototype = { areaStart: function() {
+Ts.prototype = { areaStart: function() {
   this._line = 0;
 }, areaEnd: function() {
   this._line = NaN;
@@ -2790,8 +2790,8 @@ class ch extends lt {
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.radius = Math.min(this.width, this.height) / 2, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.radius = Math.min(this.width, this.height) / 2, this.setSvg(), !0;
   }
   resolveData(t) {
     return typeof t != "string" ? () => {
@@ -2828,7 +2828,7 @@ class ch extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = D(this.roughSvg, { options: { fill: this.color, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle, fillWeight: this.fillWeight } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = H(this.roughSvg, { options: { fill: this.color, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle, fillWeight: this.fillWeight } });
   }
   getSliceClipKey() {
     return this.roughId.replace(/[^a-zA-Z0-9_-]/g, "_");
@@ -2911,8 +2911,8 @@ class dh extends lt {
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
   }
   resolveData(t) {
     return typeof t != "string" ? () => {
@@ -2950,7 +2950,7 @@ class dh extends lt {
     this.xLabel !== "" && this.svg.append("text").attr("x", this.width / 2).attr("y", this.height + this.margin.bottom / 1.3).attr("dx", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.xLabel), this.yLabel !== "" && this.svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 - this.margin.left / 2).attr("x", 0 - this.height / 2).attr("dy", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.yLabel);
   }
   addAxes() {
-    const t = Ht(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Dt(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
+    const t = Nt(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Ht(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
     this.svg.append("g").attr("transform", "translate(0," + this.height + ")").call(t).attr("class", `xAxis${this.graphClass}`).selectAll("text").attr("transform", "translate(-10, 0)rotate(-45)").style("text-anchor", "end").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize), this.svg.append("g").call(e).attr("class", `yAxis${this.graphClass}`).selectAll("text").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize), z("path.domain").attr("stroke", "transparent"), z("g.tick").style("opacity", 1);
   }
   makeAxesRough(t, e) {
@@ -3006,7 +3006,7 @@ class dh extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = D(this.roughSvg, { options: { stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.strokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = H(this.roughSvg, { options: { stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.strokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   drawFromObject() {
     const t = this;
@@ -3032,7 +3032,7 @@ class dh extends lt {
     this.legend === !0 && dt(this, t, e, s, 2), this.addAxes(), this.addLabels(), this.makeAxesRough(this.roughSvg, this.rcAxis), this.interactive === !0 && this.addInteraction();
   }
 }
-function Ns(i, t) {
+function qs(i, t) {
   var e, s = 1;
   function n() {
     var r, a, h = e.length, o = 0, l = 0;
@@ -3468,12 +3468,12 @@ class gh extends lt {
     this.remove(), this.initChartValues(t) && (this.resolveFont(), this.drawChart = this.resolveData(t.data, t.links), this.drawChart(), t.title !== "undefined" && this.setTitle(t.title));
   }
   initChartValues(t) {
-    this.roughness = t.roughness || this.roughness, this.collision = t.collision || this.collision, this.color = t.color || this.color, this.stroke = t.stroke || this.stroke, this.strokeWidth = t.strokeWidth || this.strokeWidth, this.axisStrokeWidth = t.axisStrokeWidth || this.axisStrokeWidth, this.axisRoughness = t.axisRoughness || this.axisRoughness, this.innerStrokeWidth = t.innerStrokeWidth || this.innerStrokeWidth, this.fillWeight = t.fillWeight || this.fillWeight, this.fillStyle = t.fillStyle || this.fillStyle, this.title = t.title || this.title, this.textCallback = t.textCallback || ((a) => "");
+    this.roughness = t.roughness || this.roughness, this.collision = t.collision || this.collision, this.color = t.color || this.color, this.stroke = t.stroke || this.stroke, this.strokeWidth = t.strokeWidth || this.strokeWidth, this.axisStrokeWidth = t.axisStrokeWidth || this.axisStrokeWidth, this.axisRoughness = t.axisRoughness || this.axisRoughness, this.innerStrokeWidth = t.innerStrokeWidth || this.innerStrokeWidth, this.fillWeight = t.fillWeight || this.fillWeight, this.fillStyle = t.fillStyle || this.fillStyle, this.title = t.title || this.title, this.textCallback = t.textCallback || ((o) => "");
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
   }
   resolveData(t, e) {
     return () => {
@@ -3493,7 +3493,7 @@ class gh extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = D(this.roughSvg, { options: { strokeWidth: this.innerStrokeWidth, fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = H(this.roughSvg, { options: { strokeWidth: this.innerStrokeWidth, fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   drawFromObject() {
     const t = this;
@@ -3517,7 +3517,7 @@ class gh extends lt {
       this.appendChild(d), d.setAttribute("class", t.graphClass + "_node"), x(this).append("circle").attr("class", "node-circle").attr("r", 0.5 * l).attr("fill", "transparent").attr("stroke-width", 0).attr("stroke", "none"), x(this).append("text").attr("class", "node-text").attr("x", 0).attr("y", -10).attr("text-anchor", "middle").style("pointer-events", "none").attr("stroke", "black").attr("fill", "white").attr("stroke-linejoin", "fill").attr("paint-order", "stroke fill").attr("stroke-width", "5px").attr("opacity", 0).text((c) => t.textCallback(c));
     });
     const a = $s(this.data);
-    if (a.alpha(1).restart(), a.force("collide", Ks().radius((h) => h.radius * this.collision)).force("center", Ns(this.width / 2, this.height / 2)).force("link", function(h) {
+    if (a.alpha(1).restart(), a.force("collide", Ks().radius((h) => h.radius * this.collision)).force("center", qs(this.width / 2, this.height / 2)).force("link", function(h) {
       var o, l, u, d, c, g, p = sh, f = function(v) {
         return 1 / Math.min(d[v.source.index], d[v.target.index]);
       }, y = Zt(30), m = 1;
@@ -3583,12 +3583,12 @@ class fh extends lt {
     this.remove(), this.initChartValues(t) && (this.resolveFont(), this.drawChart = this.resolveData(t.data), this.drawChart(), t.title !== "undefined" && this.setTitle(t.title));
   }
   initChartValues(t) {
-    this.roughness = t.roughness || this.roughness, this.collision = t.collision || this.collision, this.color = t.color || this.color, this.stroke = t.stroke || this.stroke, this.strokeWidth = t.strokeWidth || this.strokeWidth, this.axisStrokeWidth = t.axisStrokeWidth || this.axisStrokeWidth, this.axisRoughness = t.axisRoughness || this.axisRoughness, this.innerStrokeWidth = t.innerStrokeWidth || this.innerStrokeWidth, this.fillWeight = t.fillWeight || this.fillWeight, this.fillStyle = t.fillStyle || this.fillStyle, this.title = t.title || this.title, this.textCallback = t.textCallback || ((a) => "");
+    this.roughness = t.roughness || this.roughness, this.collision = t.collision || this.collision, this.color = t.color || this.color, this.stroke = t.stroke || this.stroke, this.strokeWidth = t.strokeWidth || this.strokeWidth, this.axisStrokeWidth = t.axisStrokeWidth || this.axisStrokeWidth, this.axisRoughness = t.axisRoughness || this.axisRoughness, this.innerStrokeWidth = t.innerStrokeWidth || this.innerStrokeWidth, this.fillWeight = t.fillWeight || this.fillWeight, this.fillStyle = t.fillStyle || this.fillStyle, this.title = t.title || this.title, this.textCallback = t.textCallback || ((o) => "");
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
   }
   resolveData(t) {
     return () => {
@@ -3608,7 +3608,7 @@ class fh extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = D(this.roughSvg, { options: { strokeWidth: this.innerStrokeWidth, fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = H(this.roughSvg, { options: { strokeWidth: this.innerStrokeWidth, fill: this.color, stroke: this.stroke === "none" ? void 0 : this.stroke, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   drawFromObject() {
     const t = this;
@@ -3632,7 +3632,7 @@ class fh extends lt {
       this.appendChild(d).setAttribute("class", t.graphClass + "_node"), x(this).append("circle").attr("class", "node-circle").attr("r", 0.5 * l).attr("fill", "transparent").attr("stroke-width", 0).attr("stroke", "none"), x(this).append("text").attr("class", "node-text").attr("x", 0).attr("y", -10).attr("text-anchor", "middle").style("pointer-events", "none").attr("stroke", "black").attr("fill", "white").attr("stroke-linejoin", "fill").attr("paint-order", "stroke fill").attr("stroke-width", "5px").attr("opacity", 0).text((c) => t.textCallback(c));
     });
     const a = $s(this.data);
-    if (a.alpha(1).restart(), a.force("collide", Ks().radius((h) => h.radius * this.collision * 1.2)).force("center", Ns(this.width / 2, this.height / 2)), a.on("tick", () => {
+    if (a.alpha(1).restart(), a.force("collide", Ks().radius((h) => h.radius * this.collision * 1.2)).force("center", qs(this.width / 2, this.height / 2)), a.on("tick", () => {
       n.attr("transform", (h) => `translate(${h.x}, ${h.y})`), n.attr("attrX", (h) => +h.x), n.attr("attrY", (h) => +h.y);
     }), z(".nodeGroup").selectAll("path:nth-child(2)").style("stroke-width", this.strokeWidth), this.interactive === !0 && this.addInteraction(), this.legend) {
       const h = this.legend;
@@ -3661,8 +3661,8 @@ class ph extends lt {
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.radius = Math.min(this.width, this.height) / 2, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.radius = Math.min(this.width, this.height) / 2, this.setSvg(), !0;
   }
   resolveData(t) {
     return typeof t != "string" ? () => {
@@ -3699,7 +3699,7 @@ class ph extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = D(this.roughSvg, { options: { fill: this.color, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.strokeWidth >= 3 ? 3 : this.strokeWidth } }), this.rc = H(this.roughSvg, { options: { fill: this.color, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   getSliceClipKey() {
     return this.roughId.replace(/[^a-zA-Z0-9_-]/g, "_");
@@ -3777,8 +3777,8 @@ class mh extends lt {
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
   }
   resolveData(t) {
     return typeof t != "string" ? () => {
@@ -3822,7 +3822,7 @@ class mh extends lt {
     this.xLabel !== "" && this.svg.append("text").attr("x", this.width / 2).attr("y", this.height + this.margin.bottom / 1.3).attr("dx", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.xLabel), this.yLabel !== "" && this.svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 - this.margin.left / 2).attr("x", 0 - this.height / 2).attr("dy", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.yLabel);
   }
   addAxes() {
-    const t = Ht(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Dt(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
+    const t = Nt(this.xScale).tickSize(0).tickFormat((s) => this.xValueFormat ? ot(this.xValueFormat)(s) : s), e = Ht(this.yScale).tickSize(0).tickFormat((s) => this.yValueFormat ? ot(this.yValueFormat)(s) : s);
     this.svg.append("g").attr("transform", "translate(0," + this.height + ")").call(t).attr("class", `xAxis${this.graphClass}`).selectAll("text").attr("transform", "translate(-10, 0)rotate(-45)").style("text-anchor", "end").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize), this.svg.append("g").call(e).attr("class", `yAxis${this.graphClass}`).selectAll("text").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize), z("path.domain").attr("stroke", "transparent"), z("g.tick").style("opacity", 1);
   }
   makeAxesRough(t, e) {
@@ -3859,7 +3859,7 @@ class mh extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = D(this.roughSvg, { options: { stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = H(this.roughSvg, { options: { stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   drawFromObject() {
     const t = this;
@@ -3900,8 +3900,8 @@ class Ah extends lt {
     const e = x(this.el).node();
     if (!e)
       return this.width = 0, this.height = 0, !1;
-    const s = e.getBoundingClientRect(), n = s.width, r = s.height;
-    return this.width = n - this.margin.left - this.margin.right, this.height = r - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
+    const s = e.getBoundingClientRect(), n = Number(t.width), r = Number(t.height), a = Number.isFinite(n) && n > 0 ? n : s.width, h = Number.isFinite(r) && r > 0 ? r : s.height;
+    return this.width = a - this.margin.left - this.margin.right, this.height = h - this.margin.top - this.margin.bottom, this.roughId = this.el + "_svg", this.graphClass = this.el.substring(1, this.el.length), this.interactionG = "g." + this.graphClass, this.setSvg(), !0;
   }
   getTotal(t) {
     for (let e = 0; e < t.length; e++) {
@@ -3936,7 +3936,7 @@ class Ah extends lt {
     } : void 0;
   }
   addScales() {
-    this.xScale = Tt().rangeRound([0, this.width]).padding(this.padding).domain(this.data.map((e) => e[this.labels])), this.yScale = Z().rangeRound([this.height, 0]).domain([0, Q(this.data, (e) => e.total)]).nice();
+    this.xScale = Dt().rangeRound([0, this.width]).padding(this.padding).domain(this.data.map((e) => e[this.labels])), this.yScale = Z().rangeRound([this.height, 0]).domain([0, Q(this.data, (e) => e.total)]).nice();
     const t = this.dataFormat === "object" ? this.data.map((e) => e[this.labels]) : this.data.columns;
     this.zScale = Ai().range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]).domain(t);
   }
@@ -3944,9 +3944,9 @@ class Ah extends lt {
     this.xLabel !== "" && this.svg.append("text").attr("x", this.width / 2).attr("y", this.height + this.margin.bottom / 2).attr("dx", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.xLabel), this.yLabel !== "" && this.svg.append("text").attr("transform", "rotate(-90)").attr("y", 0 - this.margin.left / 1.4).attr("x", 0 - this.height / 2).attr("dy", "1em").attr("class", "labelText").style("text-anchor", "middle").style("font-family", this.fontFamily).style("font-size", this.labelFontSize).text(this.yLabel);
   }
   addAxes() {
-    const t = Ht(this.xScale).tickSize(0);
+    const t = Nt(this.xScale).tickSize(0);
     this.svg.append("g").attr("transform", "translate(0," + this.height + ")").call(t).attr("class", `xAxis${this.graphClass}`).selectAll("text").attr("transform", "translate(-10,0)rotate(-45)").style("text-anchor", "end").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.8, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize).style("opacity", 0.9);
-    const e = Dt(this.yScale).tickSize(0);
+    const e = Ht(this.yScale).tickSize(0);
     this.svg.append("g").call(e).attr("class", `yAxis${this.graphClass}`).selectAll("text").style("font-family", this.fontFamily).style("font-size", this.axisFontSize === void 0 ? `${Math.min(0.95, Math.min(this.width, this.height) / 140)}rem` : this.axisFontSize).style("opacity", 0.9), z("path.domain").attr("stroke", "transparent");
   }
   makeAxesRough(t, e) {
@@ -3981,7 +3981,7 @@ class Ah extends lt {
     });
   }
   initRoughObjects() {
-    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = D(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = D(this.roughSvg, { options: { stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
+    this.roughSvg = document.getElementById(this.roughId), this.rcAxis = H(this.roughSvg, { options: { strokeWidth: this.axisStrokeWidth, roughness: this.axisRoughness } }), this.rc = H(this.roughSvg, { options: { stroke: this.stroke === "none" ? void 0 : this.stroke, strokeWidth: this.innerStrokeWidth, roughness: this.roughness, bowing: this.bowing, fillStyle: this.fillStyle } });
   }
   stacking() {
     this.data.forEach((t) => {

@@ -123,8 +123,16 @@ class BarH extends Chart {
       return false;
     }
     const divDimensions = container.getBoundingClientRect();
-    const width = divDimensions.width;
-    const height = divDimensions.height;
+    const requestedWidth = Number(opts.width);
+    const requestedHeight = Number(opts.height);
+    const width =
+      Number.isFinite(requestedWidth) && requestedWidth > 0
+        ? requestedWidth
+        : divDimensions.width;
+    const height =
+      Number.isFinite(requestedHeight) && requestedHeight > 0
+        ? requestedHeight
+        : divDimensions.height;
     this.width = width - this.margin.left - this.margin.right;
     this.height = height - this.margin.top - this.margin.bottom;
     this.roughId = this.el + "_svg";
