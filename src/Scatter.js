@@ -61,20 +61,30 @@ class Scatter extends Chart {
     this.boundRedraw = this.redraw.bind(this, opts);
     this.radiusScale;
     // new width
-    this.initChartValues(opts);
+    if (!this.initChartValues(opts)) {
+      return;
+    }
     // resolve font
     this.resolveFont();
     // create the chart
     this.drawChart = this.resolveData(opts.data);
     this.drawChart();
     if (opts.title !== "undefined") this.setTitle(opts.title);
-    window.addEventListener("resize", this.resizeHandler.bind(this));
+    this.boundResizeHandler = this.resizeHandler.bind(this);
+    window.addEventListener("resize", this.boundResizeHandler);
   }
 
   /**
    * Handles window resize to redraw chart if responsive.
    */
   resizeHandler() {
+    if (!select(this.el).node()) {
+      if (this.boundResizeHandler) {
+        window.removeEventListener("resize", this.boundResizeHandler);
+        this.boundResizeHandler = null;
+      }
+      return;
+    }
     if (this.responsive) {
       this.boundRedraw();
     }
@@ -96,7 +106,9 @@ class Scatter extends Chart {
     this.remove();
 
     // 2. Recalculate the size of the container.
-    this.initChartValues(opts);
+    if (!this.initChartValues(opts)) {
+      return;
+    }
 
     // 3. Redraw everything.
     this.resolveFont();
@@ -122,7 +134,13 @@ class Scatter extends Chart {
     this.fillWeight = opts.fillWeight || this.fillWeight;
     this.fillStyle = opts.fillStyle || this.fillStyle;
     this.colors = opts.colors || this.colors;
-    const divDimensions = select(this.el).node().getBoundingClientRect();
+    const container = select(this.el).node();
+    if (!container) {
+      this.width = 0;
+      this.height = 0;
+      return false;
+    }
+    const divDimensions = container.getBoundingClientRect();
     const width = divDimensions.width;
     const height = divDimensions.height;
     this.width = width - this.margin.left - this.margin.right;
@@ -131,6 +149,7 @@ class Scatter extends Chart {
     this.graphClass = this.el.substring(1, this.el.length);
     this.interactionG = "g." + this.graphClass;
     this.setSvg();
+    return true;
   }
 
   // add this to abstract base

@@ -7,6 +7,9 @@ import { colors } from "./utils/colors";
 import { addLegend } from "./utils/addLegend";
 import { roughCeiling } from "./utils/roughCeiling";
 
+const SVG_NS = "http://www.w3.org/2000/svg";
+const SLICE_CLIP_ATTR = "data-roughviz-slice-clip";
+
 /**
  * Pie chart class, which extends the Chart class.
  */
@@ -42,7 +45,9 @@ class Pie extends Chart {
     this.responsive = true;
     this.boundRedraw = this.redraw.bind(this, opts);
     // new width
-    this.initChartValues(opts);
+    if (!this.initChartValues(opts)) {
+      return;
+    }
     // resolve font
     this.resolveFont();
     // create the chart
@@ -76,7 +81,9 @@ class Pie extends Chart {
     this.remove();
 
     // 2. Recalculate the size of the container.
-    this.initChartValues(opts);
+    if (!this.initChartValues(opts)) {
+      return;
+    }
 
     // 3. Redraw everything.
     this.resolveFont();
@@ -101,7 +108,13 @@ class Pie extends Chart {
     this.innerStrokeWidth = opts.innerStrokeWidth || this.innerStrokeWidth;
     this.fillWeight = opts.fillWeight || this.fillWeight;
     this.fillStyle = opts.fillStyle || this.fillStyle;
-    const divDimensions = select(this.el).node().getBoundingClientRect();
+    const container = select(this.el).node();
+    if (!container) {
+      this.width = 0;
+      this.height = 0;
+      return false;
+    }
+    const divDimensions = container.getBoundingClientRect();
     const width = divDimensions.width;
     const height = divDimensions.height;
     this.width = width - this.margin.left - this.margin.right;
@@ -111,6 +124,7 @@ class Pie extends Chart {
     this.interactionG = "g." + this.graphClass;
     this.radius = Math.min(this.width, this.height) / 2;
     this.setSvg();
+    return true;
   }
 
   // add this to abstract base
@@ -267,6 +281,56 @@ class Pie extends Chart {
     });
   }
 
+  getSliceClipKey() {
+    return this.roughId.replace(/[^a-zA-Z0-9_-]/g, "_");
+  }
+
+  getSliceClipDefs() {
+    const svgRoot = this.roughSvg && this.roughSvg.ownerSVGElement;
+    if (!svgRoot) return null;
+    let defs = svgRoot.querySelector("defs");
+    if (!defs) {
+      defs = document.createElementNS(SVG_NS, "defs");
+      svgRoot.insertBefore(defs, svgRoot.firstChild);
+    }
+    return defs;
+  }
+
+  resetSliceClipPaths() {
+    const defs = this.getSliceClipDefs();
+    if (!defs) return;
+    const clipKey = this.getSliceClipKey();
+    defs
+      .querySelectorAll(`[${SLICE_CLIP_ATTR}="${clipKey}"]`)
+      .forEach((node) => node.remove());
+  }
+
+  applySliceClip(roughNode, arcDatum, index) {
+    const defs = this.getSliceClipDefs();
+    if (!defs || !roughNode) return;
+    const pathData = this.makeArc(arcDatum);
+    if (!pathData) return;
+
+    const clipKey = this.getSliceClipKey();
+    const clipId = `${clipKey}_slice_clip_${index}`;
+    const clipPath = document.createElementNS(SVG_NS, "clipPath");
+    clipPath.setAttribute("id", clipId);
+    clipPath.setAttribute(SLICE_CLIP_ATTR, clipKey);
+
+    const clipShape = document.createElementNS(SVG_NS, "path");
+    clipShape.setAttribute("d", pathData);
+    clipShape.setAttribute(
+      "transform",
+      `translate(${this.width / 2}, ${this.height / 2})`
+    );
+    clipPath.appendChild(clipShape);
+    defs.appendChild(clipPath);
+
+    select(roughNode)
+      .selectAll("path")
+      .attr("clip-path", `url(#${clipId})`);
+  }
+
   /**
    * Draw chart from object input.
    */
@@ -277,6 +341,7 @@ class Pie extends Chart {
     this.makeArc = arc().innerRadius(0).outerRadius(this.radius);
 
     this.arcs = this.makePie(this.data[this.values]);
+    this.resetSliceClipPaths();
     this.arcs.forEach((d, i) => {
       if (d.value !== 0) {
         const node = this.rc.arc(
@@ -296,6 +361,7 @@ class Pie extends Chart {
         const roughNode = this.roughSvg.appendChild(node);
         roughNode.setAttribute("attrY", this.data[this.values][i]);
         roughNode.setAttribute("attrX", this.data[this.labels][i]);
+        this.applySliceClip(roughNode, d, i);
       }
     });
 
@@ -343,6 +409,7 @@ class Pie extends Chart {
     this.makeArc = arc().innerRadius(0).outerRadius(this.radius);
 
     this.arcs = this.makePie(this.data);
+    this.resetSliceClipPaths();
 
     this.arcs.forEach((d, i) => {
       if (d.value !== 0) {
@@ -364,6 +431,7 @@ class Pie extends Chart {
         const roughNode = this.roughSvg.appendChild(node);
         roughNode.setAttribute("attrY", d.data[this.values]);
         roughNode.setAttribute("attrX", d.data[this.labels]);
+        this.applySliceClip(roughNode, d, i);
       }
       valueArr.push(d.data[this.labels]);
     });

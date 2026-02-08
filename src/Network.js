@@ -52,7 +52,9 @@ class Network extends Chart {
     this.legend = opts.legend || false;
     this.legendPosition = opts.legendPosition || "right";
     // new width
-    this.initChartValues(opts);
+    if (!this.initChartValues(opts)) {
+      return;
+    }
     // resolve font
     this.resolveFont();
     // create the chart
@@ -86,7 +88,9 @@ class Network extends Chart {
     this.remove();
 
     // 2. Recalculate the size of the container.
-    this.initChartValues(opts);
+    if (!this.initChartValues(opts)) {
+      return;
+    }
 
     // 3. Redraw everything.
     this.resolveFont();
@@ -116,7 +120,13 @@ class Network extends Chart {
     this.title = opts.title || this.title;
     const defaultTextCallback = (d) => "";
     this.textCallback = opts.textCallback || defaultTextCallback;
-    const divDimensions = select(this.el).node().getBoundingClientRect();
+    const container = select(this.el).node();
+    if (!container) {
+      this.width = 0;
+      this.height = 0;
+      return false;
+    }
+    const divDimensions = container.getBoundingClientRect();
     const width = divDimensions.width;
     const height = divDimensions.height;
     this.width = width - this.margin.left - this.margin.right;
@@ -125,6 +135,7 @@ class Network extends Chart {
     this.graphClass = this.el.substring(1, this.el.length);
     this.interactionG = "g." + this.graphClass;
     this.setSvg();
+    return true;
   }
 
   // add this to abstract base
